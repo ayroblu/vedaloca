@@ -12,7 +12,6 @@ function initMap() {
 
   getData(map);
   var sliders = handleRangeSliders(controls)
-  console.log(sliders);
   controls.querySelector('.hideControl').onclick = function(){
     var showing = controls.classList.toggle('show');
     this.innerText = showing ? "Hide" : "Show"
@@ -177,7 +176,7 @@ function handleRangeSliders(parent){
       }
     });
     slider.parentElement.style.paddingBottom = "50px"
-    return s;
+    return {el: slider, slider: s};
   });
 }
 
