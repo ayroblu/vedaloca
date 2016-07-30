@@ -5,8 +5,16 @@ var fetch = require('node-fetch');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Veda Loca'});
-
+  res.render('index', {title: 'Vida Loca', page: 'home'});
+});
+router.get('/home', function(req, res, next) {
+  res.render('index', {title: 'Vida Loca', page: 'home'});
+});
+router.get('/vidaloca', function(req, res, next) {
+  res.render('vidaloca', {title: 'Vida Loca | Vida Loca', page: 'vidaloca'});
+});
+router.get('/about', function(req, res, next) {
+  res.render('about', {title: 'Vida Loca | About Us', page: 'about'});
 });
 router.get('/data', function(req, res, next) {
   fetch('https://koordinates.com/services/query/v1/vector.json?key=015972f8788d4b738f3576eb02d77c9a&layer=8578&x=174.758700&y=-36.844784&max_results=100&radius=10000&geometry=true&with_field_names=true').then(res=>{

@@ -1,0 +1,23 @@
+extends layout
+
+block head
+  link(rel='stylesheet', href='/css/custom/nouislider.min.css')
+block content
+  div.map
+    #map
+    section.controls.show
+      div.hideControl.noselect Hide
+      div.control
+        p First Slider
+        div.slider
+    section.popup.hidden Some text
+      
+
+block scripts
+  //-script(src="/js/index.js")
+  script(src="/js/custom/nouislider.min.js")
+  script(src="/js/script.js")
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkSlPom4tp0ypqQpZela8ct4VIjh2OoN8&callback=initMap")
+
+    
+

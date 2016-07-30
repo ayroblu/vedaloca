@@ -5,9 +5,19 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     title= title || 'Ayro'
+    link(rel='stylesheet', href='/css/index.css')
     block head
   body
-    div.loadingbar
+    block header
+      div.header
+        nav
+          ul
+            li 
+              a(href='/', class=page==='home' ? 'selected' : undefined) Home
+            li 
+              a(href='/vidaloca', class=page==='vidaloca' ? 'selected' : undefined) Vida Loca
+            li 
+              a(href='/about', class=page==='about' ? 'selected' : undefined) About Us
     block content
     block scripts
 

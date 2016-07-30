@@ -1,12 +1,126 @@
 @require "custom/font-awesome/css/font-awesome.min.css"
 @require "base"
 
+html, body
+  height: 100%
+  margin: 0
+  padding: 0
+$navHeight = 50px
+nav
+  display:block
+  height: $navHeight
+  box-shadow: 0 0 10px #555
+  background: rgba(255,255,255,0.9)
+  position:absolute
+  top:0
+  left:0
+  right:0
+  z-index: 5
+  ul
+    position: absolute
+    right:0
+    li
+      display: inline-block
+      border-left: 1px solid #ddd
+      a
+        height: $navHeight
+        padding: 0 10px
+        color: black
+        line-height: $navHeight
+        box-sizing: border-box
+        display: block
+      a:hover
+        background: #888
+        color: white
+      a.selected
+        background: #ddd
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-#map {
-  height: 100%;
-}
+.noselect
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+
+.main
+  //background:#eee
+  min-height:90%
+  padding-top:($navHeight + 20px)
+  box-shadow: 0 0 10px #000
+  box-sizing: border-box
+  z-index:1
+
+footer
+  height:10%
+  background: #555
+  color:white
+  padding-top: 20px
+  box-sizing: border-box
+    
+.hidden
+  display:none
+
+.map
+  height: 100%
+  #map
+    height: 100%
+
+  .controls
+    position:absolute
+    top: ($navHeight + 30px)
+    right: 20px
+    text-align:right
+
+    .hideControl
+      background: white
+      padding: 10px
+      box-shadow: 0 0 10px #555
+      display:inline-block
+      cursor:pointer
+      margin-bottom: 20px
+      width: 50px
+      border-radius: 10px
+      opacity: 0.5
+    .hideControl:hover
+      background: #eee
+      opacity: 1
+
+    $controlWidth = 300px
+    .control
+      background: white
+      padding: 10px
+      box-shadow: 0 0 10px #555
+      margin-bottom: 20px
+      box-sizing: border-box
+      width: $controlWidth
+      transition: all 0.2s
+      opacity: 0
+      transform: translateX($controlWidth)
+      $sliderHeight=40px
+      
+      .slider
+        //position:relative
+        //height: $sliderHeight
+        width: 90%
+        margin: 5% 5% 0
+
+        .noUi-marker.noUi-marker-horizontal.noUi-marker-large
+          height:10px
+
+  .controls.show
+    .control
+      transform: translateX(0)
+      opacity: 1
+    .hideControl
+      opacity: 1
+
+  
+.gm-style-iw
+   background-color: #fff;
+   box-shadow: 0 0 10px #555;
+   border: none
+   border-radius: 2px 2px 0 0;
+   pointer-events:none;
+   padding: 2px
+   opacity: 0.8
