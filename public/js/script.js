@@ -12,6 +12,7 @@ function initMap() {
 
   getData(map);
   var sliders = handleRangeSliders(controls)
+
   controls.querySelector('.hideControl').onclick = function(){
     var showing = controls.classList.toggle('show');
     this.innerText = showing ? "Hide" : "Show"
