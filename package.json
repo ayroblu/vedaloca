@@ -1,0 +1,26 @@
+{
+  "name": "vedaloca",
+  "version": "1.0.0",
+  "description": "Data vis",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo 'no tests'",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ayroblu/vedaloca.git"
+  },
+  "keywords": [
+    "data"
+  ],
+  "author": "Ben Lu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayroblu/vedaloca/issues"
+  },
+  "homepage": "https://github.com/ayroblu/vedaloca#readme",
+  "dependencies": {
+    "dateformat": "^1.0.12"
+  }
+}
