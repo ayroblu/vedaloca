@@ -2,16 +2,16 @@
 // to create a rectangular polygon with 2 holes in it.
 
 var controls = document.querySelector('.controls')
+var sControls;
+var data;
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    //zoom: 5,
-    //center: {lat: -0, lng: 0},
     zoom: 14,
     center: {lat: -36.844784, lng: 174.758700},
   });
 
   getData(map);
-  var sliders = handleRangeSliders(controls)
+  sControls = handleRangeSliders(controls)
   controls.querySelector('.hideControl').onclick = function(){
     var showing = controls.classList.toggle('show');
     this.innerText = showing ? "Hide" : "Show"
@@ -24,41 +24,13 @@ function getData(map){
     d.forEach(row=>{
       var coords = JSON.parse(row.polygon.replace(/'/g,'"'));
       coords = coords.map(ll=>{
-        //console.log(ll[1], ll[0])
         return new google.maps.LatLng(ll[1],ll[0])
-
-        //drawPolygon(cc, map);
-
-        //return cc;
       });
       row.polygon = coords;
       
       drawPolygon(row, map);
     })
-    //d = d.vectorQuery.layers;
-    //Object.keys(d).forEach(layer=>{
-    //  d[layer].features = d[layer].features.map(item=>{
-    //    item.geometry.coordinates = item.geometry.coordinates.map(c=>{
-    //      var cc = c.map(ll=>{
-    //        return new google.maps.LatLng(ll[1],ll[0])
-    //      })
-
-    //      //drawPolygon(cc, map);
-
-    //      return cc;
-    //    });
-    //    return item;
-    //    //console.log(JSON.stringify(co));
-    //    //var marker = new google.maps.Marker({
-    //    //  position: co[0][0],
-    //    //  map: map,
-    //    //  title: 'Hello World!'
-    //    //});
-    //  });
-    //  d[layer].features.map(item=>{
-    //    drawPolygon(item, map);
-    //  });
-    //});
+    data = d;
   };
   xhr.open('POST', '/api/data');
 
@@ -75,11 +47,8 @@ function getData(map){
   //}
   xhr.send(JSON.stringify({viewport: null}));
 }
-var popup = document.querySelector('.popup');
 function drawPolygon(row, map){
   var cc = row.polygon;
-  //if (co.length !== 1)
-  //  console.log('coords = 1: ',co.length);
 
   var polygon = new google.maps.Polygon({
       map: map,
@@ -93,20 +62,6 @@ function drawPolygon(row, map){
 
   var infoWindow = drawInfoWindow(row, map, cc)
 
-  var keys = [
-    'Median_Age_of_Community', 'Educational_Achievement', 'Access_to_Cycle_Ways'
-  , 'Access_to_Public_Transport', 'Cafe_Culture', 'Nightlife'
-  , 'Schools', 'Average_Rental_Price', 'Average_Sale_Price'
-  ]
-  var val = keys.reduce((p, v)=>{
-    p += row[v];
-    return p;
-  }, 0)/keys.length/10;
-
-  polygon.setOptions({
-    fillColor: getColor(val)
-  });
-  
   polygonClick(row, map, polygon);
   polygonShowPopup(row, map, polygon, infoWindow);
 }
@@ -152,35 +107,19 @@ function polygonShowPopup(row, map, polygon, infoWindow){
       Object.assign(iwCloseBtn.style, {
         display: 'none'
       })
-
-      Object.assign(popup.style,{
-        //top: 
-      });
-      //popup.classList.remove('hidden');
   });
   // STEP 5: Listen for when the mouse stops hovering over the polygon.
   google.maps.event.addListener(polygon, 'mouseout', function (event) {
-    var keys = [
-      'Median_Age_of_Community', 'Educational_Achievement', 'Access_to_Cycle_Ways'
-    , 'Access_to_Public_Transport', 'Cafe_Culture', 'Nightlife'
-    , 'Schools', 'Average_Rental_Price', 'Average_Sale_Price'
-    ]
-    var val = keys.reduce((p, v)=>{
-      p += row[v];
-      return p;
-    }, 0)/keys.length/10;
-
     this.setOptions({
       //strokeColor: '#ff0000',
-      fillColor: getColor(val)
+      fillColor: getColour(val)
     });
     infoWindow.close(map);
-    //popup.classList.add('hidden');
   });
 }
 function drawInfoWindow(row, map, cc){
   var featureData = {
-    oid: row.meshid
+    oid: row.MB2013
   //, mid: feature.properties.MB2013
   //, aid: feature.properties.AU2013
   , name: row.meshname
@@ -218,11 +157,12 @@ function handleRangeSliders(parent){
         density: 25
       }
     });
+    s.noUiSlider.on('slide', setColours);
     slider.parentElement.style.paddingBottom = "50px"
     return {el: slider, slider: s};
   });
 }
-function getColor(percent){
+function getColour(percent){
   if (percent> 1){
     percent = 1;
   }else if(percent < 0){
@@ -233,3 +173,33 @@ function getColor(percent){
   return `rgb(${r}, ${g}, 50)`
 }
 
+function setColours(){
+  var sliderVals = sControls.map(s=>{
+    s.s.get();
+  });
+  var sum = sliderVals.reduce((p, v)=>{
+    return p + v;
+  }, 0);
+
+  //var keys = [
+  //  'Median_Age_of_Community', 'Educational_Achievement', 'Access_to_Cycle_Ways'
+  //, 'Access_to_Public_Transport', 'Cafe_Culture', 'Nightlife'
+  //, 'Schools', 'Average_Rental_Price', 'Average_Sale_Price'
+  //]
+  var keys = [
+    'Educational_Achievement', 'Access_to_Public_Transport', 'Cafe_Culture'
+  ];
+  data.forEach(row=>{
+    if (sum > 0){
+      row.val = keys.reduce((p, v, i)=>{
+        return p + row[v] * sliderVals[i] / 4;
+      }, 0)/(sum/4)/10;
+    } else {
+      row.val = 1;
+    }
+
+    polygon.setOptions({
+      fillColor: getColour(row.val)
+    });
+  });
+}
