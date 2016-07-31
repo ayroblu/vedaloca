@@ -31,7 +31,7 @@ try{
     knex.select().from('masterrating').
       //whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
       //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
-      limit(10000).then(function(rows){
+      limit(1000).then(function(rows){
         res.json(rows);
       }).catch(err=>{
         res.status(400).json(err);

@@ -80,8 +80,8 @@ function getData(map){
 var popup = document.querySelector('.popup');
 function drawPolygon(row, map){
   var co = row.polygon;
-  if (co.length !== 1)
-    console.log('coords = 1: ',co.length);
+  //if (co.length !== 1)
+  //  console.log('coords = 1: ',co.length);
 
   co.forEach(cc=>{
     var polygon = new google.maps.Polygon({
