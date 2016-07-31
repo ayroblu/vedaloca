@@ -31,7 +31,7 @@ try{
     knex.select().from('mastermesh').
       //whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
       //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
-      where('','').
+      //where('','').
       limit(1000).then(function(rows){
         res.json(rows);
       }).catch(err=>{
