@@ -3,22 +3,18 @@
 
 var controls = document.querySelector('.controls')
 function initMap() {
-  try{
-    var map = new google.maps.Map(document.getElementById('map'), {
-      //zoom: 5,
-      //center: {lat: -0, lng: 0},
-      zoom: 14,
-      center: {lat: -36.844784, lng: 174.758700},
-    });
+  var map = new google.maps.Map(document.getElementById('map'), {
+    //zoom: 5,
+    //center: {lat: -0, lng: 0},
+    zoom: 14,
+    center: {lat: -36.844784, lng: 174.758700},
+  });
 
-    getData(map);
-    var sliders = handleRangeSliders(controls)
-    controls.querySelector('.hideControl').onclick = function(){
-      var showing = controls.classList.toggle('show');
-      this.innerText = showing ? "Hide" : "Show"
-    }
-  }catch(err){
-    console.log(err);
+  getData(map);
+  var sliders = handleRangeSliders(controls)
+  controls.querySelector('.hideControl').onclick = function(){
+    var showing = controls.classList.toggle('show');
+    this.innerText = showing ? "Hide" : "Show"
   }
 }
 function getData(map){
@@ -87,6 +83,7 @@ function drawPolygon(row, map){
   //if (co.length !== 1)
   //  console.log('coords = 1: ',co.length);
 
+  console.log('polygon', cc);
   var polygon = new google.maps.Polygon({
       map: map,
       paths: cc,
