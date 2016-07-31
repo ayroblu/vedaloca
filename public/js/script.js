@@ -46,8 +46,20 @@ function getData(map){
       });
     });
   };
-  xhr.open('GET', '/data');
-  xhr.send();
+  xhr.open('POST', '/api/data');
+
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  var o = {
+    ne: {
+      lat: map.getBounds().getNorthEast().lat();
+      lng: map.getBounds().getNorthEast().lng();
+    }
+  , sw: {
+      lat: map.getBounds().getSouthWest().lat();
+      lng: map.getBounds().getSouthWest().lng();
+    }
+  }
+  xhr.send(JSON.stringify({viewport: o}));
 }
 var popup = document.querySelector('.popup');
 function drawPolygon(feature, map){
