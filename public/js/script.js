@@ -3,18 +3,22 @@
 
 var controls = document.querySelector('.controls')
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    //zoom: 5,
-    //center: {lat: -0, lng: 0},
-    zoom: 14,
-    center: {lat: -36.844784, lng: 174.758700},
-  });
+  try{
+    var map = new google.maps.Map(document.getElementById('map'), {
+      //zoom: 5,
+      //center: {lat: -0, lng: 0},
+      zoom: 14,
+      center: {lat: -36.844784, lng: 174.758700},
+    });
 
-  getData(map);
-  var sliders = handleRangeSliders(controls)
-  controls.querySelector('.hideControl').onclick = function(){
-    var showing = controls.classList.toggle('show');
-    this.innerText = showing ? "Hide" : "Show"
+    getData(map);
+    var sliders = handleRangeSliders(controls)
+    controls.querySelector('.hideControl').onclick = function(){
+      var showing = controls.classList.toggle('show');
+      this.innerText = showing ? "Hide" : "Show"
+    }
+  }catch(err){
+    console.log(err);
   }
 }
 function getData(map){
