@@ -93,9 +93,11 @@ function drawPolygon(row, map){
 
   var infoWindow = drawInfoWindow(row, map, cc)
 
-  polygon.setOptions({
-    fillColor: '#0000ff'
-  });
+  setInterval(()={
+    polygon.setOptions({
+      fillColor: getColor(math.random())
+    });
+  }, 200);
   
   polygonClick(row, map, polygon);
   polygonShowPopup(row, map, polygon, infoWindow);
@@ -201,5 +203,15 @@ function handleRangeSliders(parent){
     slider.parentElement.style.paddingBottom = "50px"
     return {el: slider, slider: s};
   });
+}
+function getColor(percent){
+  if (percent> 1){
+    percent = 1;
+  }else if(percent < 0){
+    percent = 0;
+  }
+  var g = percent*255;
+  var r = (1-percent)*255
+  return `rgb(${r}, ${g}, 50)`
 }
 
