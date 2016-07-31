@@ -24,14 +24,12 @@ function getData(map){
     console.log(this.reponseText, d);
     d.forEach(row=>{
       var coords = JSON.parse(row.polygon.replace(/'/g,'"'));
-      coords = coords.map(c=>{
-        var cc = c.map(ll=>{
-          return new google.maps.LatLng(ll[1],ll[0])
-        })
+      coords = coords.map(ll=>{
+        return new google.maps.LatLng(ll[1],ll[0])
 
         //drawPolygon(cc, map);
 
-        return cc;
+        //return cc;
       });
       row.polygon = coords;
       
