@@ -25,13 +25,13 @@ try{
     //var lng1 = map.getBounds().getSouthWest().lng();
     //if (!latlng || !latlng.lat || !latlng.lng){
     if (!viewport){
-      res.status(400).json({err:'No Lat long provided'});
-      return;
+      //res.status(400).json({err:'No Lat long provided'});
+      //return;
     }
     knex.select().from('masterrating').
-      whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
-      whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
-      limit(10).then(function(rows){
+      //whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
+      //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
+      limit(10000).then(function(rows){
         res.json(rows);
       }).catch(err=>{
         res.status(400).json(err);
