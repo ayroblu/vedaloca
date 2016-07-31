@@ -93,11 +93,11 @@ function drawPolygon(row, map){
 
   var infoWindow = drawInfoWindow(row, map, cc)
 
-  setInterval(()=>{
-    polygon.setOptions({
-      fillColor: getColor(math.random())
-    });
-  }, 200);
+  //setInterval(()=>{
+  //  polygon.setOptions({
+  //    fillColor: getColor(Math.random())
+  //  });
+  //}, 200);
   
   polygonClick(row, map, polygon);
   polygonShowPopup(row, map, polygon, infoWindow);
