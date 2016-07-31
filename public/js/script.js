@@ -28,7 +28,7 @@ function getData(map){
       });
       row.polygon = coords;
       
-      drawPolygon(row, map);
+      row.drawnPolygon = drawPolygon(row, map);
     })
     data = d;
   };
@@ -64,6 +64,8 @@ function drawPolygon(row, map){
 
   polygonClick(row, map, polygon);
   polygonShowPopup(row, map, polygon, infoWindow);
+
+  return polygon;
 }
 function polygonClick(row, map, polygon){
   google.maps.event.addListener(polygon, 'click', function (event) {
@@ -198,7 +200,7 @@ function setColours(){
       row.val = 1;
     }
 
-    polygon.setOptions({
+    row.drawnPolygon.setOptions({
       fillColor: getColour(row.val)
     });
   });
