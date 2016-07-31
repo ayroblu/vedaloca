@@ -102,6 +102,7 @@ function drawPolygon(row, map){
     p += row[v];
     return p;
   }, 0)/keys.length/10;
+
   polygon.setOptions({
     fillColor: getColor(val)
   });
@@ -159,12 +160,22 @@ function polygonShowPopup(row, map, polygon, infoWindow){
   });
   // STEP 5: Listen for when the mouse stops hovering over the polygon.
   google.maps.event.addListener(polygon, 'mouseout', function (event) {
-      this.setOptions({
-          strokeColor: '#ff0000',
-          fillColor: '#ff0000'
-      });
-      infoWindow.close(map);
-      //popup.classList.add('hidden');
+    var keys = [
+      'Median_Age_of_Community', 'Educational_Achievement', 'Access_to_Cycle_Ways'
+    , 'Access_to_Public_Transport', 'Cafe_Culture', 'Nightlife'
+    , 'Schools', 'Average_Rental_Price', 'Average_Sale_Price'
+    ]
+    var val = keys.reduce((p, v)=>{
+      p += row[v];
+      return p;
+    }, 0)/keys.length/10;
+
+    this.setOptions({
+      //strokeColor: '#ff0000',
+      fillColor: getColor(val)
+    });
+    infoWindow.close(map);
+    //popup.classList.add('hidden');
   });
 }
 function drawInfoWindow(row, map, cc){
