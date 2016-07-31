@@ -112,7 +112,7 @@ function polygonShowPopup(row, map, polygon, infoWindow){
   google.maps.event.addListener(polygon, 'mouseout', function (event) {
     this.setOptions({
       //strokeColor: '#ff0000',
-      fillColor: getColour(val)
+      fillColor: getColour(row.val)
     });
     infoWindow.close(map);
   });
