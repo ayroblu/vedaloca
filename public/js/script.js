@@ -93,7 +93,7 @@ function drawPolygon(row, map){
 
   var infoWindow = drawInfoWindow(row, map, cc)
 
-  setInterval(()={
+  setInterval(()=>{
     polygon.setOptions({
       fillColor: getColor(math.random())
     });
