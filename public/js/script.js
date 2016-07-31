@@ -79,30 +79,28 @@ function getData(map){
 }
 var popup = document.querySelector('.popup');
 function drawPolygon(row, map){
-  var co = row.polygon;
+  var cc = row.polygon;
   //if (co.length !== 1)
   //  console.log('coords = 1: ',co.length);
 
-  co.forEach(cc=>{
-    var polygon = new google.maps.Polygon({
-        map: map,
-        paths: cc,
-        strokeColor: '#ff0000',
-        strokeOpacity: 0.5,
-        strokeWeight: 1,
-        fillColor: '#ff0000',
-        fillOpacity: 0.5
-    });
-
-    var infoWindow = drawInfoWindow(row, map, cc)
-
-    polygon.setOptions({
-      fillColor: '#0000ff'
-    });
-    
-    polygonClick(row, map, polygon);
-    polygonShowPopup(row, map, polygon, infoWindow);
+  var polygon = new google.maps.Polygon({
+      map: map,
+      paths: cc,
+      strokeColor: '#ff0000',
+      strokeOpacity: 0.5,
+      strokeWeight: 1,
+      fillColor: '#ff0000',
+      fillOpacity: 0.5
   });
+
+  var infoWindow = drawInfoWindow(row, map, cc)
+
+  polygon.setOptions({
+    fillColor: '#0000ff'
+  });
+  
+  polygonClick(row, map, polygon);
+  polygonShowPopup(row, map, polygon, infoWindow);
 }
 function polygonClick(row, map, polygon){
   google.maps.event.addListener(polygon, 'click', function (event) {
