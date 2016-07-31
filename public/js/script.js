@@ -3,7 +3,7 @@
 
 var controls = document.querySelector('.controls')
 var sControls;
-var data;
+var data = [];
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
@@ -177,7 +177,7 @@ function getColour(percent){
 
 function setColours(){
   var sliderVals = sControls.map(s=>{
-    s.slider.get();
+    return parseInt(s.slider.get());
   });
   var sum = sliderVals.reduce((p, v)=>{
     return p + v;
@@ -197,7 +197,7 @@ function setColours(){
         return p + row[v] * sliderVals[i] / 4;
       }, 0)/(sum/4)/10;
     } else {
-      row.val = 1;
+      row.val = 0;
     }
 
     row.drawnPolygon.setOptions({
