@@ -24,7 +24,7 @@ function getData(map){
     d.forEach(row=>{
       var coords = JSON.parse(row.polygon.replace(/'/g,'"'));
       coords = coords.map(ll=>{
-        console.log(ll[1], ll[0])
+        //console.log(ll[1], ll[0])
         return new google.maps.LatLng(ll[1],ll[0])
 
         //drawPolygon(cc, map);

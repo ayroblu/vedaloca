@@ -28,10 +28,9 @@ try{
       //res.status(400).json({err:'No Lat long provided'});
       //return;
     }
-    knex.select().from('mastermesh').
+    knex.select().from('masterrating').
       //whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
       //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
-      //where('','').
       limit(1000).then(function(rows){
         res.json(rows);
       }).catch(err=>{
