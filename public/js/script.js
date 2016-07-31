@@ -157,7 +157,7 @@ function handleRangeSliders(parent){
         density: 25
       }
     });
-    s.noUiSlider.on('slide', setColours);
+    s.on('slide', setColours);
     slider.parentElement.style.paddingBottom = "50px"
     return {el: slider, slider: s};
   });
