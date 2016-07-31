@@ -32,6 +32,8 @@ try{
     knex.select().from('masterrating').
       //whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
       //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
+      whereNotNull('center_lat').
+      whereNotNull('center_long').
       orderByRaw(`ABS(center_lat - ${center.lat})+ ABS(center_long - ${center.lng})`).
       limit(1000).then(function(rows){
         res.json(rows);
