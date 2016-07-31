@@ -23,7 +23,7 @@ function getData(map){
     var d = JSON.parse(this.responseText);
     console.log(this.reponseText, d);
     d.forEach(row=>{
-      var coords = JSON.parse(row.polygon.replace(/'/g,'"');
+      var coords = JSON.parse(row.polygon.replace(/'/g,'"'));
       coords = coords.map(c=>{
         var cc = c.map(ll=>{
           return new google.maps.LatLng(ll[1],ll[0])
