@@ -21,6 +21,7 @@ function getData(map){
   var xhr = new XMLHttpRequest();
   xhr.onload = function(){
     var d = JSON.parse(this.responseText);
+    console.log(this.reponseText, d);
     d = d.vectorQuery.layers;
     Object.keys(d).forEach(layer=>{
       d[layer].features = d[layer].features.map(item=>{
