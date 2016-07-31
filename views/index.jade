@@ -1,18 +1,37 @@
 extends layout
 
 block content
-  section.main
+  section.main.home
     h1 Vida Loca
-    p This is some content about us, we're awesome people doing some cool stuff and want to change the work.
-    p We are creating meaningful impact in the community through open source data
-    p Youtube video goes here
+    p.quote Connecting people to places by challenging misconceptions.
+    p With VidaLoca we’ve built a tool that enables you to find a place to live that matches to your values while also taking into account affordability, letting you live la vida loca (the crazy life). 
+    p Our hope is that this tool connects you to places that closely match what you value in a community, place, or life style that you might not otherwise have considered. 
+    h3 How do I do it?
+    ul
+      li
+        div.num 1.
+        div Weigh a broad range of desirability data such as: 
+        ul
+          li education outcomes
+          li access transport facilities 
+          li local cafes culture 
+        p Don’t value a factor at all? Just turn it off.
+      li 
+        div.num 2.
+        div We take your values and match them to the raw data on the Auckland region with a traffic light indicator highlighting your closest matches
+      li 
+        div.num 3.
+        div Click on an area you want to know more about to find out what factors made it stand out to you!
+    a(href='/vidaloca').clickhere Click here to start using VidaLoca!
+
   footer
     div Copyright &copy; 2016 Vida Loca
     
       
 
 block scripts
-  //-script(src="/js/index.js")
+  script(src="/js/helper.js")
+  script(src="/js/main.js")
 
     
 

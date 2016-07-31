@@ -1,13 +1,71 @@
 extends layout
 
 block content
-  div.main
+  div.main.about
     h1 About Us
-    p Our names
-    p Govhackness
+    p The VedaLoca team came together for the 2016 GovHack event with the goal of using open source data assets drive positive outcomes.
+    p With this goal in mind we looked to the housing affordability crisis in Auckland and asked if there was anything to be done. We hypothesised that many well-known desirable locations may not really have anything over other areas than their reputation. On this assumption we set out to expose the truth.
+    p With VedaLoca you can weigh a broad range of desirability data such as education outcomes, access transport facilities, nightlife, café culture, and many more based on what you value most. Don’t value it at all? Just turn it off entirely. We take your values and match them to the raw data on the Auckland region with a traffic light indicator highlighting your closest matches. 
+    p Information we’ve enabled:
+    ul
+      li 
+        div Statistic New Zealand’s 2013 Census Data
+        ul 
+          li Age demographics
+          li Ethnicity demographics
+          li Educational attainment
+      li 
+        div Auckland Transport
+        ul 
+          li Bus stops
+          li Cycle network
+      li 
+        div New Zealand Department of Education 
+        ul
+          li School leaver NCEA Level 3 achievement 
+      li 
+        div Barfoot & Thompson 
+        ul 
+          li Average sales prices
+          li Average rental prices
+      li 
+        div Zomato 
+        ul 
+          li Cafes 
+          li Bars
+      li 
+        div Google.com
+        ul 
+          li Mapping data
+    h3 The Team
+    ul.team
+      li 
+        div.img
+        div.name Rudi Potgieter
+        div.job Database and Server Guru
+      li 
+        div.img
+        div.name Clive Schwartz
+        div.job Project extraordinaire
+      li 
+        div.img
+        div.name Nepesh Pradhan
+        div.job Data geek 
+      li 
+        div.img
+        div.name Ben Lu
+        div.job Kind of making the pretty kings
+      li 
+        div.img
+        div.name Michael Amyes
+        div.job Bossy boots
+
   footer
     div Copyright &copy; 2016 Vida Loca
       
+block scripts
+  script(src="/js/helper.js")
+  script(src="/js/main.js")
 
     
 

@@ -1,11 +1,25 @@
 @require "custom/font-awesome/css/font-awesome.min.css"
 @require "base"
+@require "header"
 
 html, body
   height: 100%
   margin: 0
   padding: 0
+p
+  margin-top: 10px
+h3
+  margin-top: 10px
 $navHeight = 50px
+div.logo
+  display:inline-block
+  height: 80px
+  box-shadow: 0 0 10px #555
+  background: rgba(255,255,255,0.9)
+  position:absolute
+  top:0
+  left:0
+  z-index: 5
 nav
   display:block
   height: $navHeight
@@ -30,10 +44,10 @@ nav
         box-sizing: border-box
         display: block
       a:hover
-        background: #888
-        color: white
+        background: #d54
       a.selected
-        background: #ddd
+        background: #c43
+        color: white
 
 .noselect
   -webkit-touch-callout: none; /* iOS Safari */
@@ -124,3 +138,66 @@ footer
    pointer-events:none;
    padding: 2px
    opacity: 0.8
+
+.about
+  padding:($navHeight + 20px) 30px 30px
+  ul
+    box-shadow: 0 0 10px #eee
+    > li
+      padding: 10px
+      ul 
+        margin-top: 5px
+        text-align:center
+        display:inline-block
+        li 
+          display:inline-block
+        li:hover
+          background: #eee
+  .team
+    text-align: center
+    div.img
+      width: 200px
+      height: 200px
+      border-radius: 50%
+      background: #eee
+      box-shadow: 0 0 10px #888
+      margin: 10px auto
+
+    div.name
+      font-weight: bold
+      font-size: 150%
+
+    li
+      width: 300px
+      box-shadow: 0 0 10px #555
+      //height: 200px
+      margin: 10px
+      display:inline-block
+
+.home
+  padding:($navHeight + 20px) 30px 30px
+  div.num
+    color:#888
+    font-size: 200%
+  ul
+    box-shadow: 0 0 10px #eee
+    > li
+      padding: 10px
+      ul 
+        margin-top: 5px
+        text-align:center
+        display:inline-block
+        li 
+          display:inline-block
+
+  .clickhere
+    display:inline-block
+    margin-top: 20px
+    background: #00aba9
+    padding:10px
+    color: white
+    text-decoration: none
+    box-shadow: 0 0 10px #555
+    
+  .clickhere:hover
+    background: #008888
