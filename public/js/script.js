@@ -51,12 +51,12 @@ function getData(map){
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   var o = {
     ne: {
-      lat: map.getBounds().getNorthEast().lat();
-      lng: map.getBounds().getNorthEast().lng();
+      lat: map.getBounds().getNorthEast().lat()
+    , lng: map.getBounds().getNorthEast().lng()
     }
   , sw: {
-      lat: map.getBounds().getSouthWest().lat();
-      lng: map.getBounds().getSouthWest().lng();
+      lat: map.getBounds().getSouthWest().lat()
+    , lng: map.getBounds().getSouthWest().lng()
     }
   }
   xhr.send(JSON.stringify({viewport: o}));
