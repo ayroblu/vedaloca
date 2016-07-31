@@ -28,9 +28,11 @@ try{
       //res.status(400).json({err:'No Lat long provided'});
       //return;
     }
+    var center = {lat: -36.844784, lng: 174.758700},
     knex.select().from('masterrating').
       //whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
       //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
+      orderByRaw(`ABS(center_lat - ${center.lat})+ ABS(center_long - ${center.lng})`).
       limit(1000).then(function(rows){
         res.json(rows);
       }).catch(err=>{
