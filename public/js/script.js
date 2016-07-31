@@ -93,11 +93,18 @@ function drawPolygon(row, map){
 
   var infoWindow = drawInfoWindow(row, map, cc)
 
-  //setInterval(()=>{
-  //  polygon.setOptions({
-  //    fillColor: getColor(Math.random())
-  //  });
-  //}, 200);
+  var keys = [
+    'Median_Age_of_Community', 'Educational_Achievement', 'Access_to_Cycle_Ways'
+  , 'Access_to_Public_Transport', 'Cafe_Culture', 'Nightlife'
+  , 'Schools', 'Average_Rental_Price', 'Average_Sale_Price'
+  ]
+  var val = keys.reduce((p, v)=>{
+    p += row[v];
+    return p;
+  }, 0)/keys.length/10;
+  polygon.setOptions({
+    fillColor: getColor(val)
+  });
   
   polygonClick(row, map, polygon);
   polygonShowPopup(row, map, polygon, infoWindow);

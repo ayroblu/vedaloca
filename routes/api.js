@@ -34,8 +34,8 @@ try{
       //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
       whereNotNull('center_lat').
       whereNotNull('center_long').
-      orderByRaw(`ABS(center_lat - ${center.lat})+ ABS(center_long - ${center.lng})`).
-      limit(1000).then(function(rows){
+      orderByRaw(`SQRT(POW(center_lat - ${center.lat}, 2)+ POW(center_long - ${center.lng}, 2))`).
+      limit(4000).then(function(rows){
         res.json(rows);
       }).catch(err=>{
         res.status(400).json(err);
