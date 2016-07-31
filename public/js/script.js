@@ -21,10 +21,10 @@ function getData(map){
   var xhr = new XMLHttpRequest();
   xhr.onload = function(){
     var d = JSON.parse(this.responseText);
-    console.log(this.reponseText, d);
     d.forEach(row=>{
       var coords = JSON.parse(row.polygon.replace(/'/g,'"'));
       coords = coords.map(ll=>{
+        console.log(ll[1], ll[0])
         return new google.maps.LatLng(ll[1],ll[0])
 
         //drawPolygon(cc, map);
@@ -81,7 +81,6 @@ function drawPolygon(row, map){
   //if (co.length !== 1)
   //  console.log('coords = 1: ',co.length);
 
-  console.log('polygon', cc);
   var polygon = new google.maps.Polygon({
       map: map,
       paths: cc,
