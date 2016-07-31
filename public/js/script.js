@@ -22,30 +22,45 @@ function getData(map){
   xhr.onload = function(){
     var d = JSON.parse(this.responseText);
     console.log(this.reponseText, d);
-    d = d.vectorQuery.layers;
-    Object.keys(d).forEach(layer=>{
-      d[layer].features = d[layer].features.map(item=>{
-        item.geometry.coordinates = item.geometry.coordinates.map(c=>{
-          var cc = c.map(ll=>{
-            return new google.maps.LatLng(ll[1],ll[0])
-          })
+    d.forEach(row=>{
+      var coords = JSON.parse(row.polygon);
+      coords = coords.map(c=>{
+        var cc = c.map(ll=>{
+          return new google.maps.LatLng(ll[1],ll[0])
+        })
 
-          //drawPolygon(cc, map);
+        //drawPolygon(cc, map);
 
-          return cc;
-        });
-        return item;
-        //console.log(JSON.stringify(co));
-        //var marker = new google.maps.Marker({
-        //  position: co[0][0],
-        //  map: map,
-        //  title: 'Hello World!'
-        //});
+        return cc;
       });
-      d[layer].features.map(item=>{
-        drawPolygon(item, map);
-      });
-    });
+      row.polygon = coords;
+      
+      drawPolygon(row, map);
+    })
+    //d = d.vectorQuery.layers;
+    //Object.keys(d).forEach(layer=>{
+    //  d[layer].features = d[layer].features.map(item=>{
+    //    item.geometry.coordinates = item.geometry.coordinates.map(c=>{
+    //      var cc = c.map(ll=>{
+    //        return new google.maps.LatLng(ll[1],ll[0])
+    //      })
+
+    //      //drawPolygon(cc, map);
+
+    //      return cc;
+    //    });
+    //    return item;
+    //    //console.log(JSON.stringify(co));
+    //    //var marker = new google.maps.Marker({
+    //    //  position: co[0][0],
+    //    //  map: map,
+    //    //  title: 'Hello World!'
+    //    //});
+    //  });
+    //  d[layer].features.map(item=>{
+    //    drawPolygon(item, map);
+    //  });
+    //});
   };
   xhr.open('POST', '/api/data');
 
@@ -63,8 +78,8 @@ function getData(map){
   xhr.send(JSON.stringify({viewport: null}));
 }
 var popup = document.querySelector('.popup');
-function drawPolygon(feature, map){
-  var co = feature.geometry.coordinates;
+function drawPolygon(row, map){
+  var co = row.polygon;
   if (co.length !== 1)
     console.log('coords = 1: ',co.length);
 
@@ -79,22 +94,22 @@ function drawPolygon(feature, map){
         fillOpacity: 0.5
     });
 
-    var infoWindow = drawInfoWindow(feature, map, cc)
+    var infoWindow = drawInfoWindow(row, map, cc)
 
     polygon.setOptions({
       fillColor: '#0000ff'
     });
     
-    polygonClick(feature, map, polygon);
-    polygonShowPopup(feature, map, polygon, infoWindow);
+    polygonClick(row, map, polygon);
+    polygonShowPopup(row, map, polygon, infoWindow);
   });
 }
-function polygonClick(feature, map, polygon){
+function polygonClick(row, map, polygon){
   google.maps.event.addListener(polygon, 'click', function (event) {
       //alert('clicked polygon!');
   });
 }
-function polygonShowPopup(feature, map, polygon, infoWindow){
+function polygonShowPopup(row, map, polygon, infoWindow){
   // STEP 4: Listen for when the mouse hovers over the polygon.
   google.maps.event.addListener(polygon, 'mouseover', function (event) {
       // Within the event listener, "this" refers to the polygon which
@@ -147,21 +162,20 @@ function polygonShowPopup(feature, map, polygon, infoWindow){
       //popup.classList.add('hidden');
   });
 }
-function drawInfoWindow(feature, map, cc){
+function drawInfoWindow(row, map, cc){
   var featureData = {
-    oid: feature.properties.OBJECTID
+    oid: row.meshid
   //, mid: feature.properties.MB2013
   //, aid: feature.properties.AU2013
-  , name: feature.properties.AU2013_NAM
+  , name: row.meshname
   //, nameb: feature.properties.UA2013_NAM
   //, namec: feature.properties.TA2013_NAM
-  , area: (feature.properties.LAND_AREA*10000).toFixed(0) + " square metres (land)"
+  //, area: (feature.properties.LAND_AREA*10000).toFixed(0) + " square metres (land)"
   }
   var dataText = `
     <div class="popupData">
       <h2>${featureData.name}</h2>
       <p>id: ${featureData.oid}</p>
-      <p>Area: ${featureData.area}</p>
     </div>
   `
   var infoWindow = new google.maps.InfoWindow({
