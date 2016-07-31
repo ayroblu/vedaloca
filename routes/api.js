@@ -1,27 +1,39 @@
 var express = require('express');
 var router = express.Router();
-//var models = require('../lib/sqlserver');
 var async = require('async');
-//var extend = require('util')._extend;
-//var filterStructure = require('../lib/filterStructure');
-//var parseString = require('xml2js').parseString;
-//var filterInterpreter = require('../lib/filterInterpreter');
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host     : '127.0.0.1',
+    user     : 'root',
+    password : 'vidaloca123!',
+    database : 'vidaloca'
+  },
+  pool: {
+    min: 1,
+    max: 7
+  }
+});
 
-//router.post('/getfilteredengagement', function(req, res, next) {
-//  var params = req.body.params[1];
-//  var conditions = req.body.conditions[1];
-//  var f = function(internalSelect, internalParams){
-//    models.getFilteredEngagement(function(err, context) {
-//      res.status(400).json({err:err});
-//    }, function(recordset) {
-//      res.json({data:recordset});
-//    }, internalSelect, internalParams);
-//  }
-//  try{
-//    filterInterpreter.getProfileFilter(params, conditions, f);
-//  }catch(err){
-//    console.log(err);
-//    res.status(400).json({err:err});
-//  }
-//});
+router.post('/data', function(req, res, next) {
+  var viewport = req.body.viewport;
+  //var latlng = req.body.latlng;
+  //var lat0 = map.getBounds().getNorthEast().lat();
+  //var lng0 = map.getBounds().getNorthEast().lng();
+  //var lat1 = map.getBounds().getSouthWest().lat();
+  //var lng1 = map.getBounds().getSouthWest().lng();
+  //if (!latlng || !latlng.lat || !latlng.lng){
+  if (!viewport){
+    res.status(400).json({err:'No Lat long provided'});
+    return;
+  }
+  knex.select().from('masterrating').
+    whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
+    whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
+    limit(10).then(function(rows){
+      res.json(rows);
+    }).catch(err=>{
+      res.status(400).json(err);
+    });
+});
 module.exports = router;
