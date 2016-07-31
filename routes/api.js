@@ -28,7 +28,7 @@ try{
       //res.status(400).json({err:'No Lat long provided'});
       //return;
     }
-    var center = {lat: -36.844784, lng: 174.758700},
+    var center = {lat: -36.844784, lng: 174.758700};
     knex.select().from('masterrating').
       //whereBetween('lat', [viewport.sw.lat, viewport.ne.lat]).
       //whereBetween('lng', [viewport.sw.lng, viewport.ne.lng]).
