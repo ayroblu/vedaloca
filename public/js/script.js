@@ -175,7 +175,7 @@ function getColour(percent){
 
 function setColours(){
   var sliderVals = sControls.map(s=>{
-    s.s.get();
+    s.slider.get();
   });
   var sum = sliderVals.reduce((p, v)=>{
     return p + v;
